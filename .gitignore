@@ -1,31 +1,22 @@
-# Dépendances / build
+# Laravel / PHP
 /vendor/
-/node_modules/
-/public/build/
-/public/hot
-/bootstrap/cache/*
-
-# Storage / logs / clés
-/storage/*.key
-/storage/app/*
-/storage/framework/*
-/storage/logs/*
-
-# Env & caches
+/storage/*
+!/storage/app/public/
+public/storage/
 .env
-.phpunit.result.cache
-
-# IDE / OS
-/.idea/
-/.vscode/
-/DS_Store
-Thumbs.db
-
-# Artifacts lourds ou sensibles
+*.log
+# Node
+/node_modules/
+/node_services/
+# Build & caches
+/public/error_log
+/public/mix-manifest.json
+npm-debug.log*
+yarn-debug.log*
+# BDD & archives
 *.sql
 *.zip
+*.rar
 *.7z
-*.tar
-*.gz
-*.bak
-*.tmp
+# Gros exemples inutiles (amCharts)
+public/assets/amcharts4/examples/

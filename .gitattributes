@@ -1,5 +1,18 @@
 * text=auto
-*.css linguist-vendored
-*.scss linguist-vendored
-*.js linguist-vendored
-CHANGELOG.md export-ignore
+*.php       text eol=lf
+*.blade.php text eol=lf
+*.js        text eol=lf
+*.css       text eol=lf
+*.md        text eol=lf
+*.bat       text eol=crlf
+*.ps1       text eol=crlf
+# Binaires (pas de conversion)
+*.jpg -text
+*.jpeg -text
+*.png -text
+*.gif -text
+*.svg -text
+*.ico -text
+*.pdf -text
+*.zip -text
+*.rar -text
