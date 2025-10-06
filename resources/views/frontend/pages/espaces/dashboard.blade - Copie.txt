@@ -1,0 +1,690 @@
+{{-- resources/views/frontend/pages/espaces/dashboard.blade.php --}}
+@extends('frontend.layouts.app')
+
+@section('styles')
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet">
+<style>
+.sidebar-nav {
+    height: 100vh;
+    transition: width 0.3s;
+    background: #343a40;
+    width: 280px;
+}
+
+.sidebar-nav.collapsed {
+    width: 80px;
+}
+
+.nav-link {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+}
+
+.nav-link i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.nav-link span {
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.sidebar-nav.collapsed .nav-link span {
+    opacity: 0;
+    display: none;
+}
+
+.main-content {
+    margin-left: 10px;
+    transition: margin-left 0.3s;
+    padding: 20px;
+}
+
+.main-content.expanded {
+    margin-left: 80px;
+}
+
+.dashboard-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.progress {
+    height: 10px;
+}
+
+#sidebarToggle {
+    position: fixed;
+    left: 280px;
+    top: 20px;
+    z-index: 999;
+    transition: left 0.3s;
+}
+
+#sidebarToggle.collapsed {
+    left: 80px;
+}
+
+.programme-item, .action-item, .activite-item {
+    padding: 5px 0;
+}
+
+.programme-item > .d-flex {
+    cursor: pointer;
+}
+
+.action-item {
+    border-left: 2px solid #dee2e6;
+    margin-left: 10px;
+    padding-left: 15px;
+}
+
+.activite-item {
+    margin: 5px 0;
+}
+
+.bi {
+    font-size: 1.1em;
+}
+</style>
+@endsection
+
+@section('content')
+<div class="d-flex">
+    <!-- Sidebar -->
+    @include('frontend.partials.sidebar')
+
+    <!-- Toggle Button -->
+    <button class="btn btn-dark" id="sidebarToggle">
+        <i class='bx bx-menu'></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <h2 class="mb-4">Tableau de Bord PTF</h2>
+            <hr class="bg-light my-3">
+            <p class="text-primary-50 mb-0">Bienvenue, {{ Auth::user()->name }}</p>
+            <hr class="bg-light my-3">
+
+            <!-- Statistics Cards Row -->
+            <div class="row" id="dashboard-cards">
+                <div class="col-md-4">
+                    <div class="card dashboard-card bg-primary text-white">
+                        <div class="card-body">
+                            <h5>Programmes Actifs</h5>
+                            <h2>12</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card dashboard-card bg-success text-white">
+                        <div class="card-body">
+                            <h5>Actions en cours</h5>
+                            <h2>45</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card dashboard-card bg-info text-white">
+                        <div class="card-body">
+                            <h5>Activités planifiées</h5>
+                            <h2>156</h2>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Nouvelle carte pour la vue arborescente -->
+            <div class="col-12 mt-4">
+                    <div class="card dashboard-card">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Vue détaillée des programmes</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="programme-tree"></div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Programs List -->
+            <div class="card dashboard-card mt-4">
+                <div class="card-header">
+                    <h5>Programmes en cours</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Programme</th>
+                                <th>Actions</th>
+                                <th>Progression</th>
+                                <th>État</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Programme 1</td>
+                                <td>15</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-success">En cours</span></td>
+                            </tr>
+                            <tr>
+                                <td>Programme 2</td>
+                                <td>8</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-warning">En attente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Nouvelle carte pour les graphiques -->
+            <div class="col-12 mt-12">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Analyses et Graphiques</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                            <div class="col-md-12">
+                                <canvas id="executionChart"></canvas>
+                            </div>
+                            <div class="col-md-12">
+                                <canvas id="trimestrielChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<!-- Ajouter Chart.js dans la section des scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fonction pour mettre à jour les cartes du dashboard
+    const updateDashboardCards = (data) => {
+        const totalProgrammes = data.programmes.length;
+        const totalActions = data.programmes.reduce((acc, prog) => 
+            acc + prog.actions.length, 0);
+        const totalActivites = data.programmes.reduce((acc, prog) => 
+            acc + prog.actions.reduce((sum, action) => 
+                sum + action.activites.length, 0), 0);
+
+        // Mettre à jour les cartes
+        const cards = document.querySelectorAll('#dashboard-cards .card');
+        cards[0].querySelector('h2').textContent = totalProgrammes;
+        cards[1].querySelector('h2').textContent = totalActions;
+        cards[2].querySelector('h2').textContent = totalActivites;
+
+        updateProgrammesTable(data.programmes);
+        updateTreeView(data.programmes);
+    };
+
+    // Fonction pour mettre à jour le tableau des programmes
+    const updateProgrammesTable = (programmes) => {
+        const tableBody = document.querySelector('table tbody');
+        tableBody.innerHTML = '';
+
+        // Supprimer tout modal existant
+        document.querySelectorAll('.actions-modal').forEach(modal => modal.remove());
+
+        programmes.forEach((programme, index) => {
+            const row = document.createElement('tr');
+            const nbActions = programme.actions.length;
+            
+            // Vérifier si au moins une activité a un taux d'exécution
+            let hasStartedActivity = false;
+            let progression = 0;
+            let actionsWithProgress = 0;
+
+            programme.actions.forEach(action => {
+                if (action.activites && action.activites.length > 0) {
+                    action.activites.forEach(activite => {
+                        if (activite.taux_execution_physique) {
+                            hasStartedActivity = true;
+                            progression += parseFloat(activite.taux_execution_physique);
+                            actionsWithProgress++;
+                        }
+                    });
+                }
+            });
+
+            const progressionMoyenne = actionsWithProgress > 0 ? 
+                Math.round(progression / actionsWithProgress) : 0;
+
+            // Déterminer l'état en fonction des activités
+            let etatBadge;
+            if (hasStartedActivity) {
+                if (progressionMoyenne >= 75) {
+                    etatBadge = '<span class="badge bg-success">En cours</span>';
+                } else {
+                    etatBadge = '<span class="badge bg-info">Démarré</span>';
+                }
+            } else {
+                etatBadge = '<span class="badge bg-secondary">Non démarré</span>';
+            }
+
+            // Créer le modal pour ce programme
+            const modalHtml = `
+                <div class="modal actions-modal fade" id="actionsModal${index}" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Actions du programme: ${programme.intitule}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Objectif</th>
+                                                <th>Progression</th>
+                                                <th>État</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${programme.actions.map(action => `
+                                                <tr>
+                                                    <td>${action.libelle}</td>
+                                                    <td>${action.objectif || 'Non défini'}</td>
+                                                    <td>
+                                                        <div class="progress">
+                                                            <div class="progress-bar" role="progressbar" 
+                                                                style="width: ${action.taux_execution_physique || 0}%" 
+                                                                aria-valuenow="${action.taux_execution_physique || 0}" 
+                                                                aria-valuemin="0" 
+                                                                aria-valuemax="100">
+                                                                ${action.taux_execution_physique || 0}%
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>${action.statut || 'Non démarré'}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Ajouter le modal au body
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+            row.innerHTML = `
+                <td>${programme.intitule}</td>
+                <td>
+                    ${nbActions}
+                    <button type="button" 
+                            class="btn btn-sm btn-primary ms-2" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#actionsModal${index}">
+                        <i class="bx bx-list-ul"></i>
+                    </button>
+                </td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: ${progressionMoyenne}%" 
+                             aria-valuenow="${progressionMoyenne}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                        </div>
+                    </div>
+                </td>
+                <td>${etatBadge}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    };
+
+    // Fonction pour charger les données
+    const loadDashboardData = async () => {
+        try {
+            const response = await axios.get('/proxy/bailleur/data');
+            if (response.data.success) {
+                updateDashboardCards(response.data.data);
+                updateCharts(response.data.data.programmes);
+            }
+        } catch (error) {
+            console.error('Erreur lors du chargement des données:', error);
+        }
+    };
+
+    // Charger les données au démarrage
+    loadDashboardData();
+
+    // Fonction pour créer la vue arborescente
+    const updateTreeView = (programmes) => {
+        const treeContainer = document.querySelector('#programme-tree');
+        if (!treeContainer) return;
+
+        let treeHtml = '<div class="card"><div class="card-body"><h5 class="card-title">Vue détaillée des programmes</h5>';
+        
+        programmes.forEach((programme, progIndex) => {
+            treeHtml += `
+                <div class="programme-item mb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-folder me-2"></i>
+                        <strong>${programme.intitule}</strong>
+                    </div>
+                    <div class="ms-4 mt-2">
+                        ${programme.actions.map((action, actionIndex) => `
+                            <div class="action-item mb-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-list-task me-2"></i>
+                                    <span>${action.libelle}</span>
+                                </div>
+                                <div class="ms-4">
+                                    ${action.activites.map((activite, actIndex) => `
+                                        <div class="activite-item">
+                                            <button class="btn btn-link text-decoration-none p-0" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#activiteModal_${progIndex}${actionIndex}${actIndex}">
+                                                <i class="bi bi-calendar-event me-2"></i>
+                                                ${activite.libelle}
+                                            </button>
+                                        </div>
+
+                                        <!-- Modal pour l'activité -->
+                                        <div class="modal fade" id="activiteModal_${progIndex}${actionIndex}${actIndex}">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Détails de l'activité</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <h6>Informations générales</h6>
+                                                                <p><strong>Libellé:</strong> ${activite.libelle}</p>
+                                                                <p><strong>Objectif:</strong> ${activite.objectif || 'Non défini'}</p>
+                                                                <p><strong>Observations:</strong> ${activite.observations || 'Aucune'}</p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h6>Financement</h6>
+                                                                <p><strong>Budget National:</strong> ${activite.financement?.budget_national || '0'} FCFA</p>
+                                                                <p><strong>PTF:</strong> ${activite.financement?.ptf || '0'} FCFA</p>
+                                                                <p><strong>Autres:</strong> ${activite.financement?.autres || '0'} FCFA</p>
+                                                                <p><strong>Total:</strong> ${activite.financement?.total || '0'} FCFA</p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <hr>
+                                                        
+                                                        <div class="row mt-3">
+                                                            <div class="col-md-6">
+                                                                <h6>Résultats</h6>
+                                                                <ul class="list-unstyled">
+                                                                    ${activite.resultats?.map(resultat => `
+                                                                        <li><i class="bi bi-check-circle me-2"></i>${resultat.libelle}</li>
+                                                                    `).join('') || 'Aucun résultat enregistré'}
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h6>Indicateurs</h6>
+                                                                <ul class="list-unstyled">
+                                                                    ${activite.indicateurs?.map(indicateur => `
+                                                                        <li>
+                                                                            <i class="bi bi-graph-up me-2"></i>
+                                                                            ${indicateur.libelle}
+                                                                            ${indicateur.valeur_realisee ? 
+                                                                                <br><small class="text-muted">Valeur réalisée: ${indicateur.valeur_realisee}</small> 
+                                                                                : ''}
+                                                                        </li>
+                                                                    `).join('') || 'Aucun indicateur enregistré'}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        });
+
+        treeHtml += '</div></div>';
+        treeContainer.innerHTML = treeHtml;
+    };
+
+    // Fonction pour mettre à jour les graphiques
+    const updateCharts = (programmes) => {
+        // Données pour le graphique en secteurs (Budget)
+        const budgetData = {
+            labels: programmes.map(p => p.intitule),
+            datasets: [{
+                data: programmes.map(p => {
+                    let total = 0;
+                    p.actions.forEach(action => {
+                        action.activites.forEach(activite => {
+                            if (activite.financement && activite.financement.total) {
+                                total += parseFloat(activite.financement.total);
+                            }
+                        });
+                    });
+                    return total;
+                }),
+                backgroundColor: [
+                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+                    '#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'
+                ]
+            }]
+        };
+
+        // Données pour le graphique en barres (Taux d'exécution)
+        const executionData = {
+            labels: programmes.map(p => p.intitule),
+            datasets: [
+                {
+                    label: 'Taux d\'exécution physique',
+                    data: programmes.map(p => {
+                        let total = 0, count = 0;
+                        p.actions.forEach(action => {
+                            action.activites.forEach(activite => {
+                                if (activite.suivi_execution?.global?.taux_execution_physique) {
+                                    total += parseFloat(activite.suivi_execution.global.taux_execution_physique);
+                                    count++;
+                                }
+                            });
+                        });
+                        return count > 0 ? total / count : 0;
+                    }),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Taux d\'exécution financière',
+                    data: programmes.map(p => {
+                        let total = 0, count = 0;
+                        p.actions.forEach(action => {
+                            action.activites.forEach(activite => {
+                                if (activite.suivi_execution?.global?.taux_execution_financier) {
+                                    total += parseFloat(activite.suivi_execution.global.taux_execution_financier);
+                                    count++;
+                                }
+                            });
+                        });
+                        return count > 0 ? total / count : 0;
+                    }),
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        // Modifier la partie du code pour le graphique linéaire (suivi trimestriel)
+        const trimestrielData = {
+            labels: ['T1', 'T2', 'T3', 'T4'],
+            datasets: programmes.map((programme, index) => {
+                // Calculer les moyennes trimestrielles pour chaque programme
+                const trimData = {T1: [], T2: [], T3: [], T4: []};
+                
+                programme.actions.forEach(action => {
+                    action.activites.forEach(activite => {
+                        if (activite.suivi_execution && activite.suivi_execution.par_trimestre) {
+                            activite.suivi_execution.par_trimestre.forEach(trim => {
+                                // Extraire le numéro du trimestre (T1, T2, T3, T4)
+                                const trimKey = trim.trimestre.substring(0, 2);
+                                if (trim.taux_execution_physique) {
+                                    trimData[trimKey].push(parseFloat(trim.taux_execution_physique));
+                                }
+                            });
+                        }
+                    });
+                });
+
+                // Calculer la moyenne pour chaque trimestre
+                const moyennes = ['T1', 'T2', 'T3', 'T4'].map(trimestre => {
+                    const valeurs = trimData[trimestre];
+                    return valeurs.length > 0 ? 
+                        valeurs.reduce((sum, val) => sum + val, 0) / valeurs.length : 
+                        0;
+                });
+
+                return {
+                    label: programme.intitule,
+                    data: moyennes,
+                    borderColor: hsl(${index * 360 / programmes.length}, 70%, 50%),
+                    fill: false,
+                    tension: 0.1
+                };
+            })
+        };
+
+        // Configuration du graphique linéaire
+        const trimestrielOptions = {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: value => value + '%'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Suivi trimestriel des programmes'
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            return ${context.dataset.label}: ${context.parsed.y.toFixed(1)}%;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Création du graphique avec les nouvelles options
+        new Chart(document.getElementById('trimestrielChart'), {
+            type: 'line',
+            data: trimestrielData,
+            options: trimestrielOptions
+        });
+
+        // Créer/Mettre à jour les graphiques
+        new Chart(document.getElementById('budgetChart'), {
+            type: 'pie',
+            data: budgetData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Répartition des budgets par programme'
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('executionChart'), {
+            type: 'bar',
+            data: executionData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Taux d\'exécution par programme'
+                    }
+                }
+            }
+        });
+    };
+});
+
+// Script existant pour le toggle sidebar
+$(document).ready(function() {
+    $('#sidebarToggle').click(function() {
+        $('.sidebar-nav').toggleClass('collapsed');
+        $('.main-content').toggleClass('expanded');
+        $(this).toggleClass('collapsed');
+    });
+});
+</script>
+@endsection

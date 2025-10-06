@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tous les Articles</title>
+    <meta name="description" content="Secrétariat Permanent pour le suivi des politiques de réformes et des programmes financiers">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://127.0.0.1:8000/assets/img/ministry-of-posts-digital-economy-and-technological-innovation-togo-ministere-des-postes-de-leconomi-146918-removebg-preview.png">
+    <meta name="csrf-token" content="NYhMshNnXvK2jymKdEmNwZdt6RS4wpEAD7Dcn5V1">
+
+    <!-- Inclure une seule version de Bootstrap -->
+    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&display=swap">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/css/slidetogoreforme.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/css/styles.css">
+    <link rel="stylesheet" href="http://127.0.0.1:8000/assets/css/custom_css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="http://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=kgbWsUUc6NwZteZJ_ODinVFKPk2CrG4hrU9v9OCd8_HoS8feE8xS1QV-v1PCtAM5" charset="UTF-8"></script></head>
+<body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+let lastScrollTop = 0;
+const topHeader = document.querySelector('.top-header');
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Scroll Down
+        topHeader.classList.add('hide-header');
+    } else {
+        // Scroll Up
+        topHeader.classList.remove('hide-header');
+    }
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Pour Mobile or negative scrolling
+});
+
+
+
+</script>
+
+<main>
+        <div id="articles">
+        <!-- Blue Band Section -->
+        <div class="blue-band">
+            <div class="container">
+                <h1 class="text-white">Tous les Articles</h1>
+                <div class="container my-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tous les Articles</li>
+        </ol>
+    </nav>
+</div>
+            </div>
+        </div>
+
+        <!-- Card Section -->
+        <div class="container mt-4">
+            <div class="card search-card mx-auto">
+                <div class="card-body">
+                        <h2 class="card-title">Tous les Articles</h2>
+
+    <!-- Barre de recherche -->
+    <div class="search-input-group mb-3">
+        <input id="search-input" class="form-control search_input" type="text" placeholder="Rechercher des articles...">
+        <button id="search-button" class="btn btn-danger search_icon" type="button">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+
+    <div id="selectedCategories" class="selected-items"></div>
+
+    <!-- Progression -->
+    <div id="progress-container" class="progress-container" style="display: none;">
+        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+    </div>
+
+    <!-- Dropdowns -->
+    <div class="dropdown-container mt-4">
+        <div class="dropdown mt-2">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButtonCategorie" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Catégories <span id="categorie-badge" class="badge bg-danger ms-2"></span>
+            </button>
+            <div id="categorie-dropdown" class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" data-value="3">
+                        <input type="checkbox" class="me-2" checked /> Actualité
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="4">
+                        <input type="checkbox" class="me-2" checked /> Economie
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="5">
+                        <input type="checkbox" class="me-2" checked /> Réformes
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="30">
+                        <input type="checkbox" class="me-2" checked /> Sans catégorie
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="31">
+                        <input type="checkbox" class="me-2" checked /> Education
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="32">
+                        <input type="checkbox" class="me-2" checked /> Social
+                    </a>
+                            </div>
+        </div>
+
+        <div class="dropdown mt-2">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButtonMois" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mois <span id="mois-badge" class="badge bg-danger ms-2"></span>
+            </button>
+            <div id="mois-dropdown" class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" data-value="1">
+                        <input type="checkbox" class="me-2" /> Janvier
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2">
+                        <input type="checkbox" class="me-2" /> Février
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="3">
+                        <input type="checkbox" class="me-2" /> Mars
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="4">
+                        <input type="checkbox" class="me-2" /> Avril
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="5">
+                        <input type="checkbox" class="me-2" /> Mai
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="6">
+                        <input type="checkbox" class="me-2" /> Juin
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="7">
+                        <input type="checkbox" class="me-2" /> Juillet
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="8">
+                        <input type="checkbox" class="me-2" /> Août
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="9">
+                        <input type="checkbox" class="me-2" /> Septembre
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="10">
+                        <input type="checkbox" class="me-2" /> Octobre
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="11">
+                        <input type="checkbox" class="me-2" /> Novembre
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="12">
+                        <input type="checkbox" class="me-2" /> Décembre
+                    </a>
+                            </div>
+        </div>
+
+        <div class="dropdown mt-2">
+            <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButtonAnnee" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Années <span id="annee-badge" class="badge bg-danger ms-2"></span>
+            </button>
+            <div id="annee-dropdown" class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#" data-value="2024">
+                        <input type="checkbox" class="me-2" /> 2024
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2023">
+                        <input type="checkbox" class="me-2" /> 2023
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2022">
+                        <input type="checkbox" class="me-2" /> 2022
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2021">
+                        <input type="checkbox" class="me-2" /> 2021
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2020">
+                        <input type="checkbox" class="me-2" /> 2020
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2019">
+                        <input type="checkbox" class="me-2" /> 2019
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2018">
+                        <input type="checkbox" class="me-2" /> 2018
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2017">
+                        <input type="checkbox" class="me-2" /> 2017
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2016">
+                        <input type="checkbox" class="me-2" /> 2016
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2015">
+                        <input type="checkbox" class="me-2" /> 2015
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2014">
+                        <input type="checkbox" class="me-2" /> 2014
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2013">
+                        <input type="checkbox" class="me-2" /> 2013
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2012">
+                        <input type="checkbox" class="me-2" /> 2012
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2011">
+                        <input type="checkbox" class="me-2" /> 2011
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2010">
+                        <input type="checkbox" class="me-2" /> 2010
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2009">
+                        <input type="checkbox" class="me-2" /> 2009
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2008">
+                        <input type="checkbox" class="me-2" /> 2008
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2007">
+                        <input type="checkbox" class="me-2" /> 2007
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2006">
+                        <input type="checkbox" class="me-2" /> 2006
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2005">
+                        <input type="checkbox" class="me-2" /> 2005
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2004">
+                        <input type="checkbox" class="me-2" /> 2004
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2003">
+                        <input type="checkbox" class="me-2" /> 2003
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2002">
+                        <input type="checkbox" class="me-2" /> 2002
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2001">
+                        <input type="checkbox" class="me-2" /> 2001
+                    </a>
+                                    <a class="dropdown-item" href="#" data-value="2000">
+                        <input type="checkbox" class="me-2" /> 2000
+                    </a>
+                            </div>
+        </div>
+    </div>
+
+    <!-- Conteneur des résultats -->
+    <div class="table-container mt-4">
+        <div class="row" id="resultats">
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/recherche-et-innovation-la-cci-togo-lance-une-unite-d8217implementation-des-resultats">
+                            <img src="http://127.0.0.1:8000/storage/images/qWk2m1UmDDtvprUNGhykI8kuuvJdGZqN1fKk71Lr.jpg" class="card-img-top" alt="Recherche et innovation : la CCI-Togo lance une unité d&amp;amp;#8217;implémentation des résultats">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/recherche-et-innovation-la-cci-togo-lance-une-unite-d8217implementation-des-resultats" class="text-decoration-none">
+                                <h3 class="card-title">Recherche et innovation : la CCI-Togo lance une unité d&amp;amp;#8217;implémentation des résultats</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  03 Jul 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/avis-specifique-de-passation-de-marches-selection-dun-architecte-pour-lidentification-et-lamenagement-des-bureaux-du-futur-mca-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/MpZF4oMVrLDPDViXjiHByviZ8a6PWskzvApfLnKR.jpg" class="card-img-top" alt="Avis spécifique de passation de marchés: sélection d’un architecte pour l’identification et l’aménagement des bureaux du futur MCA-Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/avis-specifique-de-passation-de-marches-selection-dun-architecte-pour-lidentification-et-lamenagement-des-bureaux-du-futur-mca-togo" class="text-decoration-none">
+                                <h3 class="card-title">Avis spécifique de passation de marchés: sélection d’un architecte pour l’identification et l’aménagement des bureaux du futur MCA-Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  03 Jul 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/presentation-du-rapport-du-fmi-portant-sur-les-perspectives-economiques-regionales-de-lafrique-subsaharienne-edition-davril-2024">
+                            <img src="http://127.0.0.1:8000/storage/images/040uU9UuuftbxWrvI5W5AtRO858mtnuonsQD7bJ0.jpg" class="card-img-top" alt="Présentation du Rapport du FMI portant sur les Perspectives Economiques Régionales de l’Afrique Subsaharienne, édition d’avril 2024">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/presentation-du-rapport-du-fmi-portant-sur-les-perspectives-economiques-regionales-de-lafrique-subsaharienne-edition-davril-2024" class="text-decoration-none">
+                                <h3 class="card-title">Présentation du Rapport du FMI portant sur les Perspectives Economiques Régionales de l’Afrique Subsaharienne, édition d’avril 2024</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  13 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/bulletin-trimestriel-dinformations-sur-les-performances-economiques-et-financieres-du-togo-a-fin-mars-2024-croissance-inflation-commerce-et-reformes">
+                            <img src="http://127.0.0.1:8000/storage/images/6StrVnthKMSLw73hFSpE3ngiUu2gMLCo7yx739lU.jpg" class="card-img-top" alt="Bulletin trimestriel d’informations sur les performances économiques et financières du Togo à fin mars 2024: croissance, inflation, commerce et réformes">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/bulletin-trimestriel-dinformations-sur-les-performances-economiques-et-financieres-du-togo-a-fin-mars-2024-croissance-inflation-commerce-et-reformes" class="text-decoration-none">
+                                <h3 class="card-title">Bulletin trimestriel d’informations sur les performances économiques et financières du Togo à fin mars 2024: croissance, inflation, commerce et réformes</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  13 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/les-services-du-fmi-achevent-leur-mission-de-consultation-2024-au-titre-de-larticle-iv-au-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/lxwLbBIye1pMH9vl9Oux4kaBYo9sCiXQkijXwsrv.jpg" class="card-img-top" alt="Les services du FMI achèvent leur mission de consultation 2024 au titre de l’article IV au Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/les-services-du-fmi-achevent-leur-mission-de-consultation-2024-au-titre-de-larticle-iv-au-togo" class="text-decoration-none">
+                                <h3 class="card-title">Les services du FMI achèvent leur mission de consultation 2024 au titre de l’article IV au Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  12 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/reformes-communautaires-le-togo-consolide-ses-performances-76-de-taux-dexecution">
+                            <img src="http://127.0.0.1:8000/storage/images/q4qTT0B1HKoPsxZrpNK24AnXTVKktnt9eiQfpRvh.jpg" class="card-img-top" alt="Réformes communautaires : le Togo consolide ses performances, 76% de taux d’exécution">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/reformes-communautaires-le-togo-consolide-ses-performances-76-de-taux-dexecution" class="text-decoration-none">
+                                <h3 class="card-title">Réformes communautaires : le Togo consolide ses performances, 76% de taux d’exécution</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  11 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/decentralisation-le-ministre-de-l8217administration-territoriale-au-contact-des-conseillers-regionaux">
+                            <img src="http://127.0.0.1:8000/storage/images/dc6dCCC5vstunzcV8ZeZ9HKMYeCAEWY97mnVMoCd.jpg" class="card-img-top" alt="Décentralisation : le ministre de l&amp;amp;#8217;administration territoriale au contact des conseillers régionaux">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/decentralisation-le-ministre-de-l8217administration-territoriale-au-contact-des-conseillers-regionaux" class="text-decoration-none">
+                                <h3 class="card-title">Décentralisation : le ministre de l&amp;amp;#8217;administration territoriale au contact des conseillers régionaux</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/agriculture-le-ministere-recrute-300-techniciens">
+                            <img src="http://127.0.0.1:8000/storage/images/3peh0SAmYcobDuUTBYRqt5ThS9dwdO7GCi8KrvHf.jpg" class="card-img-top" alt="Agriculture : le ministère recrute 300 techniciens">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/agriculture-le-ministere-recrute-300-techniciens" class="text-decoration-none">
+                                <h3 class="card-title">Agriculture : le ministère recrute 300 techniciens</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/sommet-coree-afrique-a-seoul-le-chef-de-letat-partage-la-vision-de-developpement-du-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/AEIvL4fCfiZTDo3g7omXjmM9IVhXBfaO31d01EaR.jpg" class="card-img-top" alt="Sommet Corée-Afrique : à Séoul, le chef de l’Etat partage la vision de développement du Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/sommet-coree-afrique-a-seoul-le-chef-de-letat-partage-la-vision-de-developpement-du-togo" class="text-decoration-none">
+                                <h3 class="card-title">Sommet Corée-Afrique : à Séoul, le chef de l’Etat partage la vision de développement du Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/appel-d8217offres-pour-selectionner-un-agent-fiscal-au-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/lJBzLDVXUxuJUHUtE8Ad9ROgO7UAx9clitd68kQm.jpg" class="card-img-top" alt="Appel d&amp;amp;#8217;Offres pour Sélectionner un Agent Fiscal au Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/appel-d8217offres-pour-selectionner-un-agent-fiscal-au-togo" class="text-decoration-none">
+                                <h3 class="card-title">Appel d&amp;amp;#8217;Offres pour Sélectionner un Agent Fiscal au Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  27 May 2024</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/centrale-solaire-de-blitta-lancement-des-travaux-d8217extension-cap-sur-une-capacite-de-70-mw">
+                            <img src="http://127.0.0.1:8000/storage/images/mnbDddr34dTdRCTKbpmNWgkwsKZSDZmlP1SG42VT.jpg" class="card-img-top" alt="Centrale solaire de Blitta : lancement des travaux d&amp;amp;#8217;extension, cap sur une capacité de 70 MW">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/centrale-solaire-de-blitta-lancement-des-travaux-d8217extension-cap-sur-une-capacite-de-70-mw" class="text-decoration-none">
+                                <h3 class="card-title">Centrale solaire de Blitta : lancement des travaux d&amp;amp;#8217;extension, cap sur une capacité de 70 MW</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  22 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/visite-du-president-nigerien-au-togo-communique-conjoint">
+                            <img src="http://127.0.0.1:8000/storage/images/esMCk5dNTw5auBszdOT058I6X2CS6p1TCMTGcm1K.jpg" class="card-img-top" alt="Visite du Président nigérien au Togo : communiqué conjoint">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/visite-du-president-nigerien-au-togo-communique-conjoint" class="text-decoration-none">
+                                <h3 class="card-title">Visite du Président nigérien au Togo : communiqué conjoint</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  23 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/lancement-du-paicut-un-projet-pour-ameliorer-l8217assainissement-dans-dix-communes-urbaines-du-togo-avec-lappui-de-la-bad">
+                            <img src="http://127.0.0.1:8000/storage/images/8ontmCm0Zm7pb3BgIFEbOl632zs5WQbXZz7DljRD.jpg" class="card-img-top" alt="Lancement du PAICUT, un projet pour améliorer l&amp;amp;#8217;assainissement dans dix communes urbaines du Togo, avec l’appui de la BAD">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/lancement-du-paicut-un-projet-pour-ameliorer-l8217assainissement-dans-dix-communes-urbaines-du-togo-avec-lappui-de-la-bad" class="text-decoration-none">
+                                <h3 class="card-title">Lancement du PAICUT, un projet pour améliorer l&amp;amp;#8217;assainissement dans dix communes urbaines du Togo, avec l’appui de la BAD</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  23 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/le-president-du-niger-mohamed-bazoum-en-visite-au-port-de-lome">
+                            <img src="http://127.0.0.1:8000/storage/images/jgSU4fJVqDyemshu1imLH948Yy7DyrhMj2JRTS2S.jpg" class="card-img-top" alt="Le Président du Niger, Mohamed Bazoum, en visite au Port de Lomé">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/le-president-du-niger-mohamed-bazoum-en-visite-au-port-de-lome" class="text-decoration-none">
+                                <h3 class="card-title">Le Président du Niger, Mohamed Bazoum, en visite au Port de Lomé</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  21 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/etendu-a-1700-places-le-marche-de-kpalime-officiellement-remis-en-service">
+                            <img src="http://127.0.0.1:8000/storage/images/fgyczRj5VL8OoBKV2oABfoGChJYaGLOkHMTU7Mhe.jpg" class="card-img-top" alt="Étendu à 1.700 places, le marché de Kpalimé officiellement remis en service">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/etendu-a-1700-places-le-marche-de-kpalime-officiellement-remis-en-service" class="text-decoration-none">
+                                <h3 class="card-title">Étendu à 1.700 places, le marché de Kpalimé officiellement remis en service</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  24 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/lansat-lance-une-vente-speciale-de-produits-cerealiers">
+                            <img src="http://127.0.0.1:8000/storage/images/7KlkDuKi6xFn5QxOjT0zBDiLY5Zyv9w5pnNF0uUt.jpg" class="card-img-top" alt="L’ANSAT lance une vente spéciale de produits céréaliers">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/lansat-lance-une-vente-speciale-de-produits-cerealiers" class="text-decoration-none">
+                                <h3 class="card-title">L’ANSAT lance une vente spéciale de produits céréaliers</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  24 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/investissements-une-delegation-canadienne-en-prospection-au-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/4RWmb4SJClPwa01AABgJvbEFTm8Dr5YUXf5y6c7p.jpg" class="card-img-top" alt="Investissements : une délégation canadienne en prospection au Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/investissements-une-delegation-canadienne-en-prospection-au-togo" class="text-decoration-none">
+                                <h3 class="card-title">Investissements : une délégation canadienne en prospection au Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  24 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/14eme-revue-annuelle-de-mise-en-oeuvre-des-reformes-un-atelier-pour-une-amelioration-de-la-gouvernance-en-cours">
+                            <img src="http://127.0.0.1:8000/storage/images/d03Mc7WiD6Q65jWcyHcjB6XF9llm2P02M4VSZWsK.jpg" class="card-img-top" alt="14ème revue annuelle de mise en œuvre des réformes : un atelier pour une amélioration de la gouvernance en cours">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/14eme-revue-annuelle-de-mise-en-oeuvre-des-reformes-un-atelier-pour-une-amelioration-de-la-gouvernance-en-cours" class="text-decoration-none">
+                                <h3 class="card-title">14ème revue annuelle de mise en œuvre des réformes : un atelier pour une amélioration de la gouvernance en cours</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  23 May 2017</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/revue-de-performance-des-reformes-des-finances-publiques-907-de-realisation-des-reformes-programmees-en-2018">
+                            <img src="http://127.0.0.1:8000/storage/images/f1H6WCMFhzEToo0kjmhm3GOp7IjUSLdFCmQk3rwO.jpg" class="card-img-top" alt="Revue de performance des réformes des finances publiques : 90,7% de réalisation des réformes programmées en 2018">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/revue-de-performance-des-reformes-des-finances-publiques-907-de-realisation-des-reformes-programmees-en-2018" class="text-decoration-none">
+                                <h3 class="card-title">Revue de performance des réformes des finances publiques : 90,7% de réalisation des réformes programmées en 2018</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  02 Apr 2019</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/reformes-75-de-taux-de-realisation-a-fin-decembre-2022">
+                            <img src="http://127.0.0.1:8000/storage/images/gnGOjUW1Y7KJzgre5sFCfAO0konY8E5rZDR0z3Ot.jpg" class="card-img-top" alt="Réformes : 75% de taux de réalisation à fin décembre 2022">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/reformes-75-de-taux-de-realisation-a-fin-decembre-2022" class="text-decoration-none">
+                                <h3 class="card-title">Réformes : 75% de taux de réalisation à fin décembre 2022</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  25 Jan 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/le-casier-judiciaire-informatise-desormais-operationnel">
+                            <img src="http://127.0.0.1:8000/storage/images/uqOYGq3RlWhW7MvOLj1YXXXDElVbhUMIIZqMzvY4.jpg" class="card-img-top" alt="Le casier judiciaire informatisé désormais opérationnel">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/le-casier-judiciaire-informatise-desormais-operationnel" class="text-decoration-none">
+                                <h3 class="card-title">Le casier judiciaire informatisé désormais opérationnel</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  03 Aug 2021</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/digitalisation-350-000-casiers-judiciaires-et-certificats-de-nationalites-delivres-en-deux-ans">
+                            <img src="http://127.0.0.1:8000/storage" class="card-img-top" alt="Digitalisation: 350 000 casiers judiciaires et certificats de nationalités délivrés en deux ans">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/digitalisation-350-000-casiers-judiciaires-et-certificats-de-nationalites-delivres-en-deux-ans" class="text-decoration-none">
+                                <h3 class="card-title">Digitalisation: 350 000 casiers judiciaires et certificats de nationalités délivrés en deux ans</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  23 Feb 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/fespaco-2023-le-togo-represente">
+                            <img src="http://127.0.0.1:8000/storage/images/dBzfWJYeN6PK9wSVXNWUujd8eHWipbzjPWdEKKUg.jpg" class="card-img-top" alt="Fespaco 2023 : le Togo représenté">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/fespaco-2023-le-togo-represente" class="text-decoration-none">
+                                <h3 class="card-title">Fespaco 2023 : le Togo représenté</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  27 Feb 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/investissement-le-togo-presente-ses-opportunites-a-bordeaux">
+                            <img src="http://127.0.0.1:8000/storage/images/CCKjbq94IWXVO4wdmWj3b6s0PXbj8MzLlwgZxBtR.jpg" class="card-img-top" alt="Investissement : le Togo présente ses opportunités à Bordeaux">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/investissement-le-togo-presente-ses-opportunites-a-bordeaux" class="text-decoration-none">
+                                <h3 class="card-title">Investissement : le Togo présente ses opportunités à Bordeaux</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  02 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/sandra-ablamba-johnson">
+                            <img src="http://127.0.0.1:8000/storage/images/reUA7cFfji2hCcTIydqYRMt1lYEkL7jX6a1lqglU.jpg" class="card-img-top" alt="Sandra ablamba JOHNSON">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/sandra-ablamba-johnson" class="text-decoration-none">
+                                <h3 class="card-title">Sandra ablamba JOHNSON</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  13 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/le-togo-et-lafrique-du-sud-renforcent-leur-cooperation-economique">
+                            <img src="http://127.0.0.1:8000/storage/images/MJE1WACbjjxzCdOL0BQf4DVAfLCppfP5muCAFuck.jpg" class="card-img-top" alt="Le Togo et l’Afrique du Sud renforcent leur coopération économique">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/le-togo-et-lafrique-du-sud-renforcent-leur-cooperation-economique" class="text-decoration-none">
+                                <h3 class="card-title">Le Togo et l’Afrique du Sud renforcent leur coopération économique</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  18 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/trafic-global-desserte-chiffres-daffaires8230-au-port-de-lome-des-voyants-au-vert-depuis-2018">
+                            <img src="http://127.0.0.1:8000/storage/images/EsQEHeWeBi6pRV3EkqGLjVLxTp0OBXbvGHQjeAtR.jpg" class="card-img-top" alt="Trafic global, desserte, chiffres d’affaires&amp;amp;#8230;, au Port de Lomé, des voyants au vert depuis 2018">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/trafic-global-desserte-chiffres-daffaires8230-au-port-de-lome-des-voyants-au-vert-depuis-2018" class="text-decoration-none">
+                                <h3 class="card-title">Trafic global, desserte, chiffres d’affaires&amp;amp;#8230;, au Port de Lomé, des voyants au vert depuis 2018</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  19 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/umoa-titres-le-togo-leve-85-milliards-fcfa">
+                            <img src="http://127.0.0.1:8000/storage/images/2QNla00huhJQeezjWzla2WMXiuOan0rQBUQBm7oa.jpg" class="card-img-top" alt="Umoa-titres : le Togo lève 8,5 milliards FCFA">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/umoa-titres-le-togo-leve-85-milliards-fcfa" class="text-decoration-none">
+                                <h3 class="card-title">Umoa-titres : le Togo lève 8,5 milliards FCFA</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  24 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/ifad-le-gouvernement-scelle-deux-conventions-de-partenariat-en-faveur-des-apprenants">
+                            <img src="http://127.0.0.1:8000/storage/images/MK6uBCRB9eik2sVGZb60FNGeYgQW2dB40aRtByAo.jpg" class="card-img-top" alt="IFAD : le gouvernement scelle deux conventions de partenariat en faveur des apprenants">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/ifad-le-gouvernement-scelle-deux-conventions-de-partenariat-en-faveur-des-apprenants" class="text-decoration-none">
+                                <h3 class="card-title">IFAD : le gouvernement scelle deux conventions de partenariat en faveur des apprenants</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  24 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/cooperation-lome-et-seoul-vont-approfondir-leur-partenariat">
+                            <img src="http://127.0.0.1:8000/storage/images/Zey4l3ROP6DLliSa7cYsBUjgYC6aTbL2IPGujnw0.jpg" class="card-img-top" alt="Coopération : Lomé et Séoul vont approfondir leur partenariat">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/cooperation-lome-et-seoul-vont-approfondir-leur-partenariat" class="text-decoration-none">
+                                <h3 class="card-title">Coopération : Lomé et Séoul vont approfondir leur partenariat</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  27 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/debut-des-preparatifs-de-la-semaine-africaine-de-la-microfinance-a-lome">
+                            <img src="http://127.0.0.1:8000/storage/images/cVugtnKAM0D4Za2obUUlOpIyyoq2xBaoenZkRMba.jpg" class="card-img-top" alt="Début des préparatifs de la Semaine africaine de la microfinance à Lomé">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/debut-des-preparatifs-de-la-semaine-africaine-de-la-microfinance-a-lome" class="text-decoration-none">
+                                <h3 class="card-title">Début des préparatifs de la Semaine africaine de la microfinance à Lomé</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  28 Mar 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/formation-et-recherche-les-universites-de-lome-et-clark-atlanta-scellent-un-partenariat">
+                            <img src="http://127.0.0.1:8000/storage/images/pa8F41BIjZS59LC0610Q3jKJISMoOKivV5af9Pb5.jpg" class="card-img-top" alt="Formation et recherche : les universités de Lomé et Clark-Atlanta scellent un partenariat">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/formation-et-recherche-les-universites-de-lome-et-clark-atlanta-scellent-un-partenariat" class="text-decoration-none">
+                                <h3 class="card-title">Formation et recherche : les universités de Lomé et Clark-Atlanta scellent un partenariat</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  04 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/eau-potable-le-nouveau-laboratoire-de-traitement-de-cacaveli-operationnel">
+                            <img src="http://127.0.0.1:8000/storage/images/cyG5aolKnVVSZYprhqW6Cb2CI47J1UmHc4THQrdw.jpg" class="card-img-top" alt="Eau potable : le nouveau laboratoire de traitement de Cacavéli opérationnel">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/eau-potable-le-nouveau-laboratoire-de-traitement-de-cacaveli-operationnel" class="text-decoration-none">
+                                <h3 class="card-title">Eau potable : le nouveau laboratoire de traitement de Cacavéli opérationnel</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  04 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/des-investisseurs-guadeloupeens-en-prospection-au-togo">
+                            <img src="http://127.0.0.1:8000/storage/images/CbmpOQF2F36nzhmwLaZLDXKaC7q8ztrWSdqy6XB2.jpg" class="card-img-top" alt="Des investisseurs guadeloupéens en prospection au Togo">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/des-investisseurs-guadeloupeens-en-prospection-au-togo" class="text-decoration-none">
+                                <h3 class="card-title">Des investisseurs guadeloupéens en prospection au Togo</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  04 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/le-togo-lance-city-builder-une-plateforme-dediee-a-l8217attraction-des-ide">
+                            <img src="http://127.0.0.1:8000/storage/images/D1VlKSGuzpIGlUPtbcZM08bRGO1v4dZpriXCqMAU.jpg" class="card-img-top" alt="Le Togo lance City Builder, une plateforme dédiée à l&amp;amp;#8217;attraction des IDE">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/le-togo-lance-city-builder-une-plateforme-dediee-a-l8217attraction-des-ide" class="text-decoration-none">
+                                <h3 class="card-title">Le Togo lance City Builder, une plateforme dédiée à l&amp;amp;#8217;attraction des IDE</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  04 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/au-togo-8-095-498-habitants-recenses">
+                            <img src="http://127.0.0.1:8000/storage/images/p83GGWzuJlqKb6P1QpSGaijcQqJ0Gwgh9CeM73Co.jpg" class="card-img-top" alt="Au Togo, 8 095 498 habitants recensés">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/au-togo-8-095-498-habitants-recenses" class="text-decoration-none">
+                                <h3 class="card-title">Au Togo, 8 095 498 habitants recensés</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  04 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/otr-8653-milliards-fcfa-de-recettes-mobilisees-en-2022-sur-fond-dexcedent">
+                            <img src="http://127.0.0.1:8000/storage/images/4nxEgdwKgdgWH9nzkdhmYwUhucWwLDoN0zZxAiM2.jpg" class="card-img-top" alt="OTR : 865,3 milliards FCFA de recettes mobilisées en 2022, sur fond d’excédent">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/otr-8653-milliards-fcfa-de-recettes-mobilisees-en-2022-sur-fond-dexcedent" class="text-decoration-none">
+                                <h3 class="card-title">OTR : 865,3 milliards FCFA de recettes mobilisées en 2022, sur fond d’excédent</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/umoa-titres-le-togo-sollicite-30-milliards-fcfa">
+                            <img src="http://127.0.0.1:8000/storage/images/JVm9dc1wHeb6d5xDJ1xzE8Hdw9sXEIo1Emq8L8u5.jpg" class="card-img-top" alt="Umoa-Titres : le Togo sollicite 30 milliards FCFA">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/umoa-titres-le-togo-sollicite-30-milliards-fcfa" class="text-decoration-none">
+                                <h3 class="card-title">Umoa-Titres : le Togo sollicite 30 milliards FCFA</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/strategie-d8217endettement-a-moyen-terme-2023-2025">
+                            <img src="http://127.0.0.1:8000/storage/images/3dRxTcaCDZUrZYAmQbxDrZxJumklheKn84IU5kXM.jpg" class="card-img-top" alt="Stratégie d&amp;amp;#8217;endettement à moyen terme 2023-2025">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/strategie-d8217endettement-a-moyen-terme-2023-2025" class="text-decoration-none">
+                                <h3 class="card-title">Stratégie d&amp;amp;#8217;endettement à moyen terme 2023-2025</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/rapport-annuel-de-la-dette-publique-au-31-decembre-2022">
+                            <img src="http://127.0.0.1:8000/storage/images/kyRrNpkTkiDZtdeNQFaHiv9aWdwasyKhHacRbjFO.jpg" class="card-img-top" alt="Rapport annuel de la dette publique au 31 Décembre 2022">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/rapport-annuel-de-la-dette-publique-au-31-decembre-2022" class="text-decoration-none">
+                                <h3 class="card-title">Rapport annuel de la dette publique au 31 Décembre 2022</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  05 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/budget-citoyen-2023">
+                            <img src="http://127.0.0.1:8000/storage/images/F5RWaoRWOpOj3sxiVGnHXRZxOdj1jgVk8AXOuaUN.jpg" class="card-img-top" alt="Budget citoyen 2023">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/budget-citoyen-2023" class="text-decoration-none">
+                                <h3 class="card-title">Budget citoyen 2023</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  07 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/economie-maritime-le-togo-et-le-bresil-planchent-sur-leur-cooperation">
+                            <img src="http://127.0.0.1:8000/storage/images/4qLiNtnuLIkxEuFWgQH1w2KFdf2KGSFkN60kL3Uq.jpg" class="card-img-top" alt="Economie maritime : le Togo et le Brésil planchent sur leur coopération">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/economie-maritime-le-togo-et-le-bresil-planchent-sur-leur-cooperation" class="text-decoration-none">
+                                <h3 class="card-title">Economie maritime : le Togo et le Brésil planchent sur leur coopération</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  07 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/partenariat-etat-secteur-prive-une-journee-nationale-en-preparation">
+                            <img src="http://127.0.0.1:8000/storage/images/OPDzhz8pqEW50zzeIYhrjFmFdFvESsRJ8G5a9nfO.jpg" class="card-img-top" alt="Partenariat Etat-secteur privé : une journée nationale en préparation">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/partenariat-etat-secteur-prive-une-journee-nationale-en-preparation" class="text-decoration-none">
+                                <h3 class="card-title">Partenariat Etat-secteur privé : une journée nationale en préparation</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  07 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                            <div class="col-12 col-md-4 mb-4 article-card" data-category="">
+                    <div class="card h-100">
+                        <!-- Lien enveloppant l'image -->
+                        <a href="http://127.0.0.1:8000/articles/une-centrale-solaire-sera-construite-a-dapaong">
+                            <img src="http://127.0.0.1:8000/storage/images/TXPumaxpu7HH9bz91Vxsm6QBl30OEMDU6vpWOQ3K.jpg" class="card-img-top" alt="Une centrale solaire sera construite à Dapaong">
+                        </a>
+
+                        <div class="card-body">
+                            <!-- Lien enveloppant le titre -->
+                            <a href="http://127.0.0.1:8000/articles/une-centrale-solaire-sera-construite-a-dapaong" class="text-decoration-none">
+                                <h3 class="card-title">Une centrale solaire sera construite à Dapaong</h3>
+                            </a>
+
+                            <p class="card-date">Publié le  07 Apr 2023</p>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+        <div id="error-message" class="text-danger" style="display: none;">Aucun résultat trouvé.</div>
+        <div class="mt-4">
+            <nav>
+        <ul class="pagination">
+            
+                            <li class="page-item disabled" aria-disabled="true" aria-label="« Précédent">
+                    <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                </li>
+            
+            
+                            
+                
+                
+                                                                                        <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+                                                                                                <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/articles?page=2">2</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/articles?page=3">3</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/articles?page=4">4</a></li>
+                                                                                                <li class="page-item"><a class="page-link" href="http://127.0.0.1:8000/articles?page=5">5</a></li>
+                                                                        
+            
+                            <li class="page-item">
+                    <a class="page-link" href="http://127.0.0.1:8000/articles?page=2" rel="next" aria-label="Suivant »">&rsaquo;</a>
+                </li>
+                    </ul>
+    </nav>
+
+        </div>
+        <p id="documeny_length">44 Articles affichés sur cette page.</p>
+        <p>Total des articles : 187</p>
+        
+    </div>
+
+
+
+    <script>
+        const assetUrl = "http://127.0.0.1:8000/storage";
+    </script>
+
+    <!-- Script pour la recherche avec filtres -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.querySelector('#search-input');
+            const searchButton = document.querySelector('#search-button');
+            const resultsContainer = document.querySelector('#resultats');
+            const errorMessage = document.querySelector('#error-message');
+            const selectedCategoriesContainer = document.querySelector('#selectedCategories');
+
+            const categoriesDropdown = document.querySelector('#categorie-dropdown');
+            const categoriesBadge = document.querySelector('#categories-badge');
+            const moisDropdown = document.querySelector('#mois-dropdown');
+            const moisBadge = document.querySelector('#mois-badge');
+            const anneeDropdown = document.querySelector('#annee-dropdown');
+            const anneeBadge = document.querySelector('#annee-badge');
+
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.textContent = 'Recherche en cours...';
+            loadingIndicator.style.display = 'none';
+            loadingIndicator.style.fontWeight = 'bold';
+            resultsContainer.appendChild(loadingIndicator);
+
+            function updateBadgeCount(dropdownId, badgeElement) {
+                const checkedCount = Array.from(document.querySelectorAll(`${dropdownId} input[type="checkbox"]:checked`)).length;
+                badgeElement.textContent = checkedCount > 0 ? checkedCount : '';
+            }
+
+            function updateSelectedCategories() {
+                selectedCategoriesContainer.innerHTML = '';
+                const categories = Array.from(document.querySelectorAll('#categorie-dropdown input:checked')).map(input => input.closest('a').textContent.trim()).join(', ');
+                const months = Array.from(document.querySelectorAll('#mois-dropdown input:checked')).map(input => input.closest('a').textContent.trim()).join(', ');
+                const years = Array.from(document.querySelectorAll('#annee-dropdown input:checked')).map(input => input.closest('a').textContent.trim()).join(', ');
+
+                if (categories) {
+                    selectedCategoriesContainer.innerHTML += `<p><strong>Catégories :</strong> ${categories}</p>`;
+                }
+                if (months) {
+                    selectedCategoriesContainer.innerHTML += `<p><strong>Mois :</strong> ${months}</p>`;
+                }
+                if (years) {
+                    selectedCategoriesContainer.innerHTML += `<p><strong>Années :</strong> ${years}</p>`;
+                }
+            }
+
+            categoriesDropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateBadgeCount('#categorie-dropdown', categoriesBadge);
+                    updateSelectedCategories();
+                    fetchArticles();
+                });
+            });
+
+            moisDropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateBadgeCount('#mois-dropdown', moisBadge);
+                    updateSelectedCategories();
+                    fetchArticles();
+                });
+            });
+
+            anneeDropdown.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    updateBadgeCount('#annee-dropdown', anneeBadge);
+                    updateSelectedCategories();
+                    fetchArticles();
+                });
+            });
+
+            function fetchArticles() {
+                const query = searchInput.value.toLowerCase();
+                const filters = {
+                    categories: Array.from(document.querySelectorAll('#categorie-dropdown input:checked')).map(input => input.closest('a').dataset.value),
+                    months: Array.from(document.querySelectorAll('#mois-dropdown input:checked')).map(input => input.closest('a').dataset.value),
+                    years: Array.from(document.querySelectorAll('#annee-dropdown input:checked')).map(input => input.closest('a').dataset.value)
+                };
+
+                loadingIndicator.style.display = 'block'; // Afficher l'indicateur de chargement
+                resultsContainer.innerHTML = ''; // Vider les résultats précédents
+
+                fetch('http://127.0.0.1:8000/search-articles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': 'NYhMshNnXvK2jymKdEmNwZdt6RS4wpEAD7Dcn5V1'
+            },
+            body: JSON.stringify({
+                query: query,
+                filters: filters
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('#documeny_length').html(data.documents.length);
+            if (data.documents.length > 0) {
+                renderDocuments(data.documents);
+            } else {
+                resultsContainer.innerHTML = "";
+                showErrorMessage('Aucun document trouvé.');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            showErrorMessage('Une erreur est survenue lors de la recherche.');
+        });
+            }
+
+            function renderArticles(articles) {
+                resultsContainer.innerHTML = articles.map(article => `
+                <div class="col-12 col-md-4 mb-4 article-card" data-category="${article.category}">
+                    <div class="card h-100">
+                        <a href="/articles/${article.slug}">
+                            <img src="/storage/${article.image}" class="card-img-top" alt="${article.title}">
+                        </a>
+                        <div class="card-body">
+                            <a href="/articles/${article.slug}" class="text-decoration-none">
+                                <h3 class="card-title">${article.title}</h3>
+                            </a>
+                            <p class="card-date">Publié le ${new Date(article.published_at).toLocaleDateString('fr-FR', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            })}</p>
+                        </div>
+                    </div>
+                </div>
+                `).join('');
+                errorMessage.style.display = 'none';
+            }
+
+            function showErrorMessage(message) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+                resultsContainer.innerHTML = '';
+            }
+
+            searchInput.addEventListener('input', fetchArticles);
+            searchButton.addEventListener('click', fetchArticles);
+        });
+        </script>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        
+        
+    </div>
+</main>
+
+
+
+
+<footer id="page-specific-footer" class="footer">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <!-- Contact and Useful Links Section -->
+            <div class="col-12 col-md-8">
+                <div class="row">
+                    <div class="col-12 col-sm-6 mb-4 mb-sm-0">
+                        <div class="footer-section">
+                            <h4>Contact</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="mailto:contact@example.com">contact@example.com</a></li>
+                                <li><a href="tel:+123456789">+123 456 789</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="footer-section">
+                            <h4>Liens utiles</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="/link1">Lien utile 1</a></li>
+                                <li><a href="/link2">Lien utile 2</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-separator mt-4"></div>
+
+    <div class="footer-bottom text-center py-3">
+        <p>© Tous droits réservés, <span id="year"></span></p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="http://127.0.0.1:8000/assets/css/styles.js">
+<!-- Bouton "Retour en haut" -->
+<a href="#" id="back-to-top" class="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<script>
+    // Afficher le bouton lorsque l'utilisateur fait défiler vers le bas
+window.addEventListener('scroll', function() {
+    const backToTop = document.getElementById('back-to-top');
+    if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+
+// Animation pour revenir en haut de la page
+document.getElementById('back-to-top').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+</script>
+
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/Simple-Slider-swiper-bundle.min.js"></script>
+<script src="assets/js/Simple-Slider.js"></script>
+<script src="assets/js/styles.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Dépendances / build
+/vendor/
+/node_modules/
+/public/build/
+/public/hot
+/bootstrap/cache/*
+
+# Storage / logs / clés
+/storage/*.key
+/storage/app/*
+/storage/framework/*
+/storage/logs/*
+
+# Env & caches
+.env
+.phpunit.result.cache
+
+# IDE / OS
+/.idea/
+/.vscode/
+/DS_Store
+Thumbs.db
+
+# Artifacts lourds ou sensibles
+*.sql
+*.zip
+*.7z
+*.tar
+*.gz
+*.bak
+*.tmp
